@@ -1,73 +1,49 @@
-// function addToList() {
-//     var todo = document.getElementById('inpTodo');
-//     // creating li in inner HTML
-//     var createLi = document.createElement('li');
-//     var li = document.getElementById('list').appendChild(createLi);
-//     var inpVal = todo.value;
-//     li.innerHTML = inpVal;
-//     // creating delete btn
-//     var delBtn = document.createElement('button');
-//     var delBtnText = document.createTextNode("Delete")
-//     delBtn.appendChild(delBtnText);
-//     // inpVal.appendChild(delBtn.appendChild(delBtnText));
+function getListItems () {
+    var listItems = document.getElementById('addToAdd');
+    
+
+    var createElement = document.createElement('li');
+    createElement.append(listItems.value);
+    var getUl = document.getElementById('list');
+    var getEle = getUl.appendChild(createElement);
+    
+
+    var delBtn = document.createElement('button');
+    var delTxt = document.createTextNode("Delete");
+    delBtn.appendChild(delTxt);
+    getEle.appendChild(delBtn)
+    delBtn.setAttribute('class','btn btn-outline-secondary li-btn-del')
+    delBtn.setAttribute('id','element');
+    delBtn.setAttribute('onclick','delItem(this)');
+
+
+    var editBtn = document.createElement('button');
+    var editTxt = document.createTextNode("Edit");
+    editBtn.appendChild(editTxt);
+    getEle.appendChild(editBtn);
+    editBtn.setAttribute('class','btn btn-outline-secondary li-btn-edit');
+    editBtn.setAttribute('id','element');
+    editBtn.setAttribute('onclick','editItem(this)');
     
     
-//     todo.value = "";
-
-
-// }
-// Create a "close" button and append it to each list item
-var myNodelist = document.getElementsByTagName("LI");
-var i;
-for (i = 0; i < myNodelist.length; i++) {
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  myNodelist[i].appendChild(span);
+    listItems.value = "";
+    
 }
 
-// Click on a close button to hide the current list item
-var close = document.getElementsByClassName("close");
-var i;
-for (i = 0; i < close.length; i++) {
-  close[i].onclick = function() {
-    var div = this.parentElement;
-    div.style.display = "none";
-  }
+function delItem(e) {
+    var delEle = e;
+    delEle.parentNode.remove()
 }
 
-// Add a "checked" symbol when clicking on a list item
-var list = document.querySelector('ul');
-list.addEventListener('click', function(ev) {
-  if (ev.target.tagName === 'LI') {
-    ev.target.classList.toggle('checked');
-  }
-}, false);
+function editItem(e) {
+    var editVal = prompt("Enter the new value to the list ?")
+    var editEle = e;
+    editEle.parentNode.firstChild.remove()
+    var txt = document.createTextNode(editVal);
+    var editEle = editEle.parentNode;
+    editEle.appendChild(txt);
+}
 
-// Create a new list item when clicking on the "Add" button
-function newElement() {
-  var li = document.createElement("li");
-  var inputValue = document.getElementById("myInput").value;
-  var t = document.createTextNode(inputValue);
-  li.appendChild(t);
-  if (inputValue === '') {
-    alert("You must write something!");
-  } else {
-    document.getElementById("myUL").appendChild(li);
-  }
-  document.getElementById("myInput").value = "";
-
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  li.appendChild(span);
-
-  for (i = 0; i < close.length; i++) {
-    close[i].onclick = function() {
-      var div = this.parentElement;
-      div.style.display = "none";
-    }
-  }
+function delListItems() {
+    location.reload()
 }
